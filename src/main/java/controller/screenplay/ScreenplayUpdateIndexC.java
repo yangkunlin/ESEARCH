@@ -44,18 +44,11 @@ public class ScreenplayUpdateIndexC {
 //            jsonMap.put("mark", str2);
 //        }
 
-        String id = searchService.searchForDel(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, "gid", jsonMap.get("gid"));
-
-        if (id.isEmpty()) {
-            ScreenplayAddIndexC screenplayAddIndexC = new ScreenplayAddIndexC();
-            return screenplayAddIndexC.addIndex(body);
+        boolean isSuccess = indexService.updateWithID(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, jsonMap, jsonMap.get(ESParams.ELASTICSEARCH_ID).toString());
+        if (isSuccess) {
+            return "Success";
         } else {
-            boolean isSuccess = indexService.updateWithID(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, jsonMap, id.replaceAll("\"", ""));
-            if (isSuccess) {
-                return "Success";
-            } else {
-                return "Fail";
-            }
+            return "Fail";
         }
 
     }

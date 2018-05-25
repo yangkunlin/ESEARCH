@@ -21,29 +21,30 @@ public class ESParams {
 
     public static int _PORT = 12262;
 
-    public static String XIYUAN_INDEX = "trial_xysearch";
+    public static String ELASTICSEARCH_ID = "gid";
 
-    public static String XIYUAN_TYPE = "xiyuan";
-
-    public static String SCREENPLAY_INDEX = "trial_spsearch";
-
-    public static String SCREENPLAY_TYPE = "screenplay";
-
-    public static String HOTWORD_INDEX = "trial_hwsearch";
-
-    public static String HOTWORD_TYPE = "hotword";
-
-
-//    public static String XIYUAN_INDEX = "final_xysearch";
+//    public static String XIYUAN_INDEX = "trial_xysearch";
 //
 //    public static String XIYUAN_TYPE = "xiyuan";
 //
-//    public static String SCREENPLAY_INDEX = "final_spsearch";
+//    public static String SCREENPLAY_INDEX = "trial_spsearch";
 //
 //    public static String SCREENPLAY_TYPE = "screenplay";
 //
-//    public static String HOTWORD_INDEX = "final_hwsearch";
+//    public static String HOTWORD_INDEX = "trial_hwsearch";
 //
 //    public static String HOTWORD_TYPE = "hotword";
+
+    public static String XIYUAN_INDEX = "final_xysearch";
+
+    public static String XIYUAN_TYPE = "xiyuan";
+
+    public static String SCREENPLAY_INDEX = "final_spsearch";
+
+    public static String SCREENPLAY_TYPE = "screenplay";
+
+    public static String HOTWORD_INDEX = "final_hwsearch";
+
+    public static String HOTWORD_TYPE = "hotword";
 
 }

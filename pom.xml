@@ -106,7 +106,7 @@
 
         <!-- 打成jar包的名称 -->
 
-        <finalName>TRIALESEARCH</finalName>
+        <finalName>FINALESEARCH</finalName>
 
         <plugins>
 

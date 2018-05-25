@@ -44,19 +44,19 @@ public class XiyuanUpdateIndexC {
 //            jsonMap.put("mark", str2);
 //        }
 
-        String id = searchService.searchForDel(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, "gid", jsonMap.get("gid"));
-
-        if (id.isEmpty()) {
-            XiyuanAddIndexC xiyuanAddIndexC = new XiyuanAddIndexC();
-            return xiyuanAddIndexC.addIndex(body);
+//        String id = searchService.searchForDel(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, "gid", jsonMap.get("gid"));
+//
+//        if (id.isEmpty()) {
+//            XiyuanAddIndexC xiyuanAddIndexC = new XiyuanAddIndexC();
+//            return xiyuanAddIndexC.addIndex(body);
+//        } else {
+        boolean isSuccess = indexService.updateWithID(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, jsonMap, jsonMap.get(ESParams.ELASTICSEARCH_ID).toString());
+        if (isSuccess) {
+            return "Success";
         } else {
-            boolean isSuccess = indexService.updateWithID(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, jsonMap, id.replaceAll("\"", ""));
-            if (isSuccess) {
-                return "Success";
-            } else {
-                return "Fail";
-            }
+            return "Fail";
         }
+//        }
 
     }
 

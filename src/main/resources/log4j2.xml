@@ -3,10 +3,10 @@
 
     <properties>
         <!-- 生产环境 -->
-        <!--<property name="LOG_HOME">/xvdb/FINALESEARCH/logs/final/</property>-->
+        <property name="LOG_HOME">/xvdb/FINALESEARCH/logs/final/</property>
 
-        <!--&lt;!&ndash; 开发环境 &ndash;&gt;-->
-        <property name="LOG_HOME">/xvdb/TRIALESEARCH/logs/test/</property>
+        <!--&lt;!&ndash;&lt;!&ndash; 开发环境 &ndash;&gt;&ndash;&gt;-->
+        <!--<property name="LOG_HOME">/xvdb/TRIALESEARCH/logs/test/</property>-->
 
     </properties>
 

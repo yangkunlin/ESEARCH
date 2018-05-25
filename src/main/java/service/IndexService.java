@@ -11,17 +11,19 @@ import java.util.Map;
  */
 public interface IndexService {
 
-    public boolean addWithoutID(String _INDEX, String _TYPE, Map<String, Object> _FIELD) throws Exception;
+    boolean addWithoutID(String _INDEX, String _TYPE, Map<String, Object> _FIELD) throws Exception;
 
-    public boolean addWithID(String _INDEX, String _TYPE, Map<String, Object> _FIELD, String _ID) throws Exception;
+    boolean addWithID(String _INDEX, String _TYPE, Map<String, Object> _FIELD, String _ID) throws Exception;
 
-    public boolean bulkAddWithoutID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception;
+    boolean bulkAddWithoutID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception;
 
-    public String getWithID(String _INDEX, String _TYPE, String _ID) throws Exception;
+    boolean bulkAddWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception;
 
-    public boolean delWithID(String _INDEX, String _TYPE, String _ID) throws Exception;
+    String getWithID(String _INDEX, String _TYPE, String _ID) throws Exception;
 
-    public boolean updateWithID(String _INDEX, String _TYPE, Map<String, Object> _BODY, String _ID) throws Exception;
+    boolean delWithID(String _INDEX, String _TYPE, String _ID) throws Exception;
+
+    boolean updateWithID(String _INDEX, String _TYPE, Map<String, Object> _BODY, String _ID) throws Exception;
 
 //    public void multiGet(String... ids) throws Exception;
 //

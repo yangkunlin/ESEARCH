@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import service.IndexServiceImpl;
-import service.SearchServiceImpl;
 
 /**
  * @author YKL on 2018/4/18.
@@ -26,23 +25,14 @@ public class ScreenplayDelIndexC {
     public String addIndex(@RequestBody String body) throws Exception {
 
         IndexServiceImpl indexService = new IndexServiceImpl();
-
-        SearchServiceImpl searchService = new SearchServiceImpl();
         JSONParser jsonParser = new JSONParser();
-
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 
-        String id = searchService.searchForDel(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, "gid", bodyJSON.getAsString("gid"));
-
-        if (id.isEmpty()) {
-            return "Fail";
+        boolean isSuccess = indexService.delWithID(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.ELASTICSEARCH_ID));
+        if (isSuccess) {
+            return "Success";
         } else {
-            boolean isSuccess = indexService.delWithID(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, id.replaceAll("\"", ""));
-            if (isSuccess) {
-                return "Success";
-            } else {
-                return "Fail";
-            }
+            return "Fail";
         }
 
     }

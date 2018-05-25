@@ -1,6 +1,7 @@
 package service;
 
 import common.ESClient;
+import common.ESParams;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
@@ -75,6 +76,23 @@ public class IndexServiceImpl implements IndexService {
                bulkRequest.add(client.prepareIndex(_INDEX, _TYPE).setSource(_FIELD));
            }
            bulkRequest.execute().actionGet();
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean bulkAddWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception {
+        TransportClient client = new ESClient().getConnection();
+        BulkRequestBuilder bulkRequest = client.prepareBulk();
+
+        try {
+            for (Map<String, Object> _FIELD : _FIELDS) {
+                bulkRequest.add(client.prepareIndex(_INDEX, _TYPE).setSource(_FIELD).setId(_FIELD.get(ESParams.ELASTICSEARCH_ID).toString()));
+            }
+            bulkRequest.execute().actionGet();
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();

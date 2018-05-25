@@ -50,28 +50,6 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public String searchForDel(String _INDEX, String _TYPE, String _QUERYKEY, Object _QUERYVALUE) throws Exception {
-        TransportClient client = new ESClient().getConnection();
-
-        SearchResponse searchResponse = client.prepareSearch(_INDEX)
-                .setTypes(_TYPE)
-                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                .setQuery(QueryBuilders.matchQuery(_QUERYKEY, _QUERYVALUE.toString().trim()))
-                .setExplain(true)
-                .get();
-
-        SearchHits hits = searchResponse.getHits();
-        String id;
-        if (hits.totalHits > 0) {
-            id = JSON.toJSONString(hits.getAt(0).getId());
-        } else {
-            id = "";
-        }
-
-        return id;
-    }
-
-    @Override
     public String allFieldSearchWithType(String _INDEX, String _TYPE, String _TYPEVALUE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception {
         _FROM = _FROM * _SIZE;
 
