@@ -153,17 +153,29 @@ public class ScreenplaySearchC {
 
         if (bodyJSON.containsKey("type")) {
 
-            logger.info(identity + " all search field:" + bodyJSON.getAsString("key"));
+            if (bodyJSON.containsKey("key") && !bodyJSON.getAsString("key").equals("")) {
+                logger.info(identity + " all search field:" + bodyJSON.getAsString("key"));
 
-            return searchService.allFieldSearchWithType(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, bodyJSON.getAsString("type"),
-                    bodyJSON.getAsString("key"), from, size);
+                return searchService.allFieldSearchWithType(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString("type"),
+                        bodyJSON.getAsString("key"), from, size);
+            } else {
+                return "request query value";
+            }
+
+
         } else {
 
-            logger.info(identity + " all search field:" + bodyJSON.getAsString("key"));
+            if (bodyJSON.containsKey("key") && !bodyJSON.getAsString("key").equals("")) {
+                logger.info(identity + " all search field:" + bodyJSON.getAsString("key"));
 
-            return searchService.allFieldSearch(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE,
-                    bodyJSON.getAsString("key"),
-                    from, size);
+                return searchService.allFieldSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
+                        bodyJSON.getAsString("key"),
+                        from, size);
+            } else {
+                return "request query value";
+            }
+
+
         }
 
     }

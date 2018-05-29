@@ -1,10 +1,12 @@
 package controller.xiyuan;
 
+import common.ESClient;
 import common.ESParams;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -121,7 +123,6 @@ public class XiyuanSearchC {
 
     @RequestMapping(value = "/XIYUAN/Haproxy", method = RequestMethod.GET)
     public void haproxy() throws Exception {
-
     }
 
     @RequestMapping(value = "/XIYUAN/Search", method = RequestMethod.POST)
@@ -157,17 +158,29 @@ public class XiyuanSearchC {
 
         if (bodyJSON.containsKey("type")) {
 
-            logger.info(identity + " all search field:" + bodyJSON.getAsString("key"));
+            if (bodyJSON.containsKey("key") && !bodyJSON.getAsString("key").equals("")) {
+                logger.info(identity + " all search field:" + bodyJSON.getAsString("key"));
 
-            return searchService.allFieldSearchWithType(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString("type"),
-                    bodyJSON.getAsString("key"), from, size);
+                return searchService.allFieldSearchWithType(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString("type"),
+                        bodyJSON.getAsString("key"), from, size);
+            } else {
+                return "request query value";
+            }
+
+
         } else {
 
-            logger.info(identity + " all search field:" + bodyJSON.getAsString("key"));
+            if (bodyJSON.containsKey("key") && !bodyJSON.getAsString("key").equals("")) {
+                logger.info(identity + " all search field:" + bodyJSON.getAsString("key"));
 
-            return searchService.allFieldSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
-                    bodyJSON.getAsString("key"),
-                    from, size);
+                return searchService.allFieldSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
+                        bodyJSON.getAsString("key"),
+                        from, size);
+            } else {
+                return "request query value";
+            }
+
+
         }
 
     }
