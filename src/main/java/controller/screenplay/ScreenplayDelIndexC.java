@@ -28,7 +28,7 @@ public class ScreenplayDelIndexC {
         JSONParser jsonParser = new JSONParser();
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 
-        boolean isSuccess = indexService.delWithID(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.ELASTICSEARCH_ID));
+        boolean isSuccess = indexService.delWithID(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, bodyJSON.getAsString(ESParams.ELASTICSEARCH_ID));
         if (isSuccess) {
             return "Success";
         } else {

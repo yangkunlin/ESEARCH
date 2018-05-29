@@ -43,7 +43,7 @@ public class ScreenplayAddIndexC {
 //                String str2 = jsonMap.get("mark").toString();
 //                jsonMap.put("mark", str2);
 //            }
-            indexService.addWithID(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, jsonMap, jsonMap.get(ESParams.ELASTICSEARCH_ID).toString());
+            indexService.addWithID(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, jsonMap, jsonMap.get(ESParams.ELASTICSEARCH_ID).toString());
             isSuccess = true;
         } catch (Exception e) {
             isSuccess = false;
@@ -70,7 +70,7 @@ public class ScreenplayAddIndexC {
                 Map<String, Object> jsonMap = (Map<String, Object>) JSONObject.parse(jsonObject.toString());
                 list.add(jsonMap);
             }
-            indexService.bulkAddWithID(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, list);
+            indexService.bulkAddWithID(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, list);
             isSuccess = true;
         } catch (Exception e) {
             isSuccess = false;
