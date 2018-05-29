@@ -1,6 +1,5 @@
 package controller.xiyuan;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import common.ESParams;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
@@ -10,11 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import service.IndexServiceImpl;
 import service.SearchServiceImpl;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author YKL on 2018/4/18.
@@ -60,7 +55,7 @@ public class XiyuanSearchC {
 
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 
-        StringBuffer identity = new StringBuffer().append(ESParams.SPLITSTR);
+        StringBuilder identity = new StringBuilder().append(ESParams.SPLITSTR);
         if (bodyJSON.containsKey(ESParams.UID)) {
             identity.append(bodyJSON.getAsString(ESParams.UID)).append(" ");
         }
