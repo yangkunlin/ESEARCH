@@ -24,14 +24,14 @@ public class ESClient {
 //        System.out.print("--------------------------------");
         try {
             Settings settings = Settings.builder()
-                    .put("client.transport.sniff", true)
+//                    .put("client.transport.sniff", true)
                     .put("xpack.security.user", ESParams.ELASTICSEARCH_XPACK)
                     .put("cluster.name", ESParams._CLUSTERNAME).build();
             client = new PreBuiltXPackTransportClient(settings)
-                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_01), ESParams._PORT))
-                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_02), ESParams._PORT))
-                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_03), ESParams._PORT))
-                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_04), ESParams._PORT))
+//                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_01), ESParams._PORT));
+//                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_02), ESParams._PORT));
+//                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_03), ESParams._PORT));
+//                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_04), ESParams._PORT));
                     .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_05), ESParams._PORT));
 //            System.out.print(client.toString());
         } catch (Exception ex) {

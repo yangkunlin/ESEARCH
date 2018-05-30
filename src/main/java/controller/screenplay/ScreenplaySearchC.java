@@ -56,15 +56,15 @@ public class ScreenplaySearchC {
 
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 
-        StringBuilder identity = new StringBuilder().append(ESParams.SPLITSTR);
+        StringBuilder identity = new StringBuilder().append(ESParams.SPLITSTR + " ");
         if (bodyJSON.containsKey(ESParams.UID)) {
-            identity.append(bodyJSON.getAsString(ESParams.UID)).append(" ");
+            identity.append(ESParams.UID + ":[").append(bodyJSON.getAsString(ESParams.UID)).append("] ");
         }
         if (bodyJSON.containsKey(ESParams.IMEI)) {
-            identity.append(bodyJSON.getAsString(ESParams.IMEI)).append(" ");
+            identity.append(ESParams.IMEI + ":[").append(bodyJSON.getAsString(ESParams.IMEI)).append("] ");
         }
         if (bodyJSON.containsKey(ESParams.MEID)) {
-            identity.append(bodyJSON.getAsString(ESParams.MEID));
+            identity.append(ESParams.MEID + ":[").append(bodyJSON.getAsString(ESParams.MEID)).append("] ");
         }
         identity.append(ESParams.SPLITSTR);
 
@@ -87,7 +87,8 @@ public class ScreenplaySearchC {
                 return searchService.allFieldSearchWithType(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, bodyJSON.getAsString(ESParams.TYPE),
                         bodyJSON.getAsString(ESParams.KEY), from, size);
             } else {
-                return "request query value";
+                return searchService.allFieldSearchWithType(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.TYPE),
+                        "", from, size);
             }
 
 
@@ -100,7 +101,8 @@ public class ScreenplaySearchC {
                         bodyJSON.getAsString(ESParams.KEY),
                         from, size);
             } else {
-                return "request query value";
+                return searchService.allFieldSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
+                        "", from, size);
             }
 
 
