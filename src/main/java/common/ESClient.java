@@ -18,7 +18,7 @@ import java.net.InetAddress;
 public class ESClient {
 
     //private  EsClient client = new EsClient();
-    private static TransportClient client = null;
+    private volatile static TransportClient client;
 
     public ESClient() {
 //        System.out.print("--------------------------------");
@@ -40,7 +40,7 @@ public class ESClient {
         }
     }
 
-    public TransportClient getConnection() {
+    public static synchronized  TransportClient getConnection() {
 
         if (client == null) {
             synchronized (ESClient.class) {

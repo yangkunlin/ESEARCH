@@ -19,6 +19,8 @@ public interface IndexService {
 
     boolean bulkAddWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception;
 
+    boolean bulkDelWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception;
+
     String getWithID(String _INDEX, String _TYPE, String _ID) throws Exception;
 
     boolean delWithID(String _INDEX, String _TYPE, String _ID) throws Exception;

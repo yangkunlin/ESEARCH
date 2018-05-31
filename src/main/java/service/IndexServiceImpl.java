@@ -101,6 +101,23 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
+    public boolean bulkDelWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception {
+        TransportClient client = new ESClient().getConnection();
+        BulkRequestBuilder bulkRequest = client.prepareBulk();
+
+        try {
+            for (Map<String, Object> _FIELD : _FIELDS) {
+                bulkRequest.add(client.prepareDelete(_INDEX, _TYPE, _FIELD.get(ESParams.ELASTICSEARCH_ID).toString()));
+            }
+            bulkRequest.execute().actionGet();
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public String getWithID(String _INDEX, String _TYPE, String _ID) throws Exception {
 
         GetResponse getResponse;
