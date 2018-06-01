@@ -37,6 +37,9 @@ public class IndexServiceImpl implements IndexService {
                     .actionGet();
             return true;
         } catch (Exception ex) {
+            if (client != null) {
+                client = null;
+            }
             ex.printStackTrace();
             return false;
         }
@@ -47,7 +50,8 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public boolean addWithID(String _INDEX, String _TYPE, Map<String, Object> _FIELD, String _ID) throws Exception {
 
-        try (TransportClient client = new ESClient().getConnection()) {
+        TransportClient client = new ESClient().getConnection();
+        try {
 
             IndexResponse indexResponse = client.prepareIndex().setIndex(_INDEX)
                     .setType(_TYPE)
@@ -57,6 +61,9 @@ public class IndexServiceImpl implements IndexService {
                     .actionGet();
             return true;
         } catch (Exception ex) {
+            if (client != null) {
+                client = null;
+            }
             ex.printStackTrace();
             return false;
         }
@@ -69,15 +76,19 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public boolean bulkAddWithoutID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception {
         TransportClient client = new ESClient().getConnection();
-        BulkRequestBuilder bulkRequest = client.prepareBulk();
 
         try {
-           for (Map<String, Object> _FIELD : _FIELDS) {
+            BulkRequestBuilder bulkRequest = client.prepareBulk();
+
+            for (Map<String, Object> _FIELD : _FIELDS) {
                bulkRequest.add(client.prepareIndex(_INDEX, _TYPE).setSource(_FIELD));
            }
            bulkRequest.execute().actionGet();
             return true;
         } catch (Exception ex) {
+            if (client != null) {
+                client = null;
+            }
             ex.printStackTrace();
             return false;
         }
@@ -86,15 +97,19 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public boolean bulkAddWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception {
         TransportClient client = new ESClient().getConnection();
-        BulkRequestBuilder bulkRequest = client.prepareBulk();
 
         try {
+            BulkRequestBuilder bulkRequest = client.prepareBulk();
+
             for (Map<String, Object> _FIELD : _FIELDS) {
                 bulkRequest.add(client.prepareIndex(_INDEX, _TYPE).setSource(_FIELD).setId(_FIELD.get(ESParams.ELASTICSEARCH_ID).toString()));
             }
             bulkRequest.execute().actionGet();
             return true;
         } catch (Exception ex) {
+            if (client != null) {
+                client = null;
+            }
             ex.printStackTrace();
             return false;
         }
@@ -103,15 +118,19 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public boolean bulkDelWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception {
         TransportClient client = new ESClient().getConnection();
-        BulkRequestBuilder bulkRequest = client.prepareBulk();
 
         try {
+            BulkRequestBuilder bulkRequest = client.prepareBulk();
+
             for (Map<String, Object> _FIELD : _FIELDS) {
                 bulkRequest.add(client.prepareDelete(_INDEX, _TYPE, _FIELD.get(ESParams.ELASTICSEARCH_ID).toString()));
             }
             bulkRequest.execute().actionGet();
             return true;
         } catch (Exception ex) {
+            if (client != null) {
+                client = null;
+            }
             ex.printStackTrace();
             return false;
         }
@@ -136,9 +155,9 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public boolean delWithID(String _INDEX, String _TYPE, String _ID) throws Exception {
+        TransportClient client = new ESClient().getConnection();
 
         try {
-            TransportClient client = new ESClient().getConnection();
 
             DeleteResponse delResponse =
                     client.prepareDelete(_INDEX, _TYPE, _ID)
@@ -148,6 +167,9 @@ public class IndexServiceImpl implements IndexService {
 
             return true;
         } catch (Exception ex) {
+            if (client != null) {
+                client = null;
+            }
             ex.printStackTrace();
             return false;
         }
@@ -156,9 +178,9 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public boolean updateWithID(String _INDEX, String _TYPE, Map<String, Object> _BODY, String _ID) throws Exception {
+        TransportClient client = new ESClient().getConnection();
 
         try {
-            TransportClient client = new ESClient().getConnection();
 
             UpdateResponse updateResponse =
                     client.prepareUpdate().setIndex(_INDEX)
@@ -169,6 +191,9 @@ public class IndexServiceImpl implements IndexService {
                             .actionGet();
             return true;
         } catch (Exception ex) {
+            if (client != null) {
+                client = null;
+            }
             ex.printStackTrace();
             return false;
         }

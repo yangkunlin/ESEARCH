@@ -27,6 +27,7 @@ public class ESClient {
 
     public static synchronized TransportClient getConnection() {
 
+
         if (client == null) {
             synchronized (ESClient.class) {
                 if (client == null) {
