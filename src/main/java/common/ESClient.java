@@ -18,34 +18,34 @@ import java.net.InetAddress;
 public class ESClient {
 
     //private  EsClient client = new EsClient();
-    private volatile static TransportClient client;
+    private static volatile TransportClient client;
 
     public ESClient() {
 //        System.out.print("--------------------------------");
-        try {
-            Settings settings = Settings.builder()
-//                    .put("client.transport.sniff", true)
-                    .put("xpack.security.user", ESParams.ELASTICSEARCH_XPACK)
-                    .put("cluster.name", ESParams._CLUSTERNAME).build();
-            client = new PreBuiltXPackTransportClient(settings)
-//                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_01), ESParams._PORT));
-//                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_02), ESParams._PORT));
-//                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_03), ESParams._PORT));
-//                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_04), ESParams._PORT));
-                    .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_05), ESParams._PORT));
-//            System.out.print(client.toString());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            client.close();
-        }
+
     }
 
-    public static synchronized  TransportClient getConnection() {
+    public static synchronized TransportClient getConnection() {
 
         if (client == null) {
             synchronized (ESClient.class) {
                 if (client == null) {
-                    new ESClient();
+                    try {
+                        Settings settings = Settings.builder()
+//                    .put("client.transport.sniff", true)
+                                .put("xpack.security.user", ESParams.ELASTICSEARCH_XPACK)
+                                .put("cluster.name", ESParams._CLUSTERNAME).build();
+                        client = new PreBuiltXPackTransportClient(settings)
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_01), ESParams._PORT))
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_02), ESParams._PORT))
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_03), ESParams._PORT))
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_04), ESParams._PORT))
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_05), ESParams._PORT));
+//            System.out.print(client.toString());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        client.close();
+                    }
                 }
             }
         }

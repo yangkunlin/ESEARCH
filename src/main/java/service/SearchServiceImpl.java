@@ -3,19 +3,14 @@ package service;
 import com.alibaba.fastjson.JSON;
 import common.ESClient;
 import common.ESParams;
-import common.IKSplit;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.index.query.MatchQueryBuilder;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.WildcardQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +71,6 @@ public class SearchServiceImpl implements SearchService {
         List<JSON> jsonList = new ArrayList<>();
 
         mapToJsonList(hits, jsonList);
-
         return JSON.toJSONString(jsonList);
     }
 
@@ -105,7 +99,6 @@ public class SearchServiceImpl implements SearchService {
         }
 
         jsonString.append(JSON.toJSONString(strArr));
-
         return jsonString;
     }
 
