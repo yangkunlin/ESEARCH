@@ -13,6 +13,13 @@
 
     <appenders>
 
+        <!--这个输出Kafka的配置-->
+        <Kafka name="Kafka" topic="FinalSearch">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout charset="GB18030" pattern="%message"/>
+            <Property name="bootstrap.servers">10.141.30.98:9092,10.141.82.240:9092,10.141.0.198:9092</Property>
+        </Kafka>
+
         <!--这个输出控制台的配置-->
 
         <console name="Console" target="SYSTEM_OUT">
@@ -42,7 +49,7 @@
 
             <!--控制台只输出level及以上级别的信息（onMatch）， （onMismatch）-->
 
-            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+            <ThresholdFilter level="info" onMatch="DENY" onMismatch="DENY" />
 
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
 
@@ -63,7 +70,7 @@
             <!--filePattern="${LOG_HOME}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">-->
 
 
-            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            <ThresholdFilter level="warn" onMatch="DENY" onMismatch="DENY"/>
 
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
 
@@ -108,20 +115,23 @@
 
     <loggers>
 
-        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <!--过滤掉spring和elaticsearch的一些无用的DEBUG信息-->
 
-        <logger name="org.springframework" level="WARN"></logger>
-        <logger name="org.elasticsearch" level="WARN"></logger>
+        <logger name="org.springframework" level="WARN"/>
+        <logger name="org.elasticsearch" level="WARN"/>
+        <Logger name="org.apache.kafka" level="WARN"/>
 
         <root level="info">
 
             <!--<appender-ref ref="Console"/>-->
 
-            <appender-ref ref="RollingFileInfo"/>
+            <!--<appender-ref ref="RollingFileInfo"/>-->
 
             <appender-ref ref="RollingFileWarn"/>
 
             <appender-ref ref="RollingFileError"/>
+
+            <AppenderRef ref="Kafka"/>
 
         </root>
 

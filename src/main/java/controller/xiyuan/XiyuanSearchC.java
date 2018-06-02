@@ -1,10 +1,12 @@
 package controller.xiyuan;
 
 import common.ESParams;
+import model.SearchModel;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,20 +54,32 @@ public class XiyuanSearchC {
 
         SearchServiceImpl searchService = new SearchServiceImpl();
         JSONParser jsonParser = new JSONParser();
+        SearchModel searchModel = new SearchModel();
+        searchModel.setTimestamp(new DateTime().getMillis());
 
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 
-        StringBuilder identity = new StringBuilder().append(ESParams.SPLITSTR + " ");
+//        StringBuilder identity = new StringBuilder().append(ESParams.SPLITSTR + " ");
+//        if (bodyJSON.containsKey(ESParams.UID)) {
+//            identity.append(ESParams.UID + ":[").append(bodyJSON.getAsString(ESParams.UID)).append("] ");
+//        }
+//        if (bodyJSON.containsKey(ESParams.IMEI)) {
+//            identity.append(ESParams.IMEI + ":[").append(bodyJSON.getAsString(ESParams.IMEI)).append("] ");
+//        }
+//        if (bodyJSON.containsKey(ESParams.MEID)) {
+//            identity.append(ESParams.MEID + ":[").append(bodyJSON.getAsString(ESParams.MEID)).append("] ");
+//        }
+//        identity.append(ESParams.SPLITSTR);
+
         if (bodyJSON.containsKey(ESParams.UID)) {
-            identity.append(ESParams.UID + ":[").append(bodyJSON.getAsString(ESParams.UID)).append("] ");
+            searchModel.setUid(bodyJSON.getAsString(ESParams.UID));
         }
         if (bodyJSON.containsKey(ESParams.IMEI)) {
-            identity.append(ESParams.IMEI + ":[").append(bodyJSON.getAsString(ESParams.IMEI)).append("] ");
+            searchModel.setImei(bodyJSON.getAsString(ESParams.IMEI));
         }
         if (bodyJSON.containsKey(ESParams.MEID)) {
-            identity.append(ESParams.MEID + ":[").append(bodyJSON.getAsString(ESParams.MEID)).append("] ");
+            searchModel.setMeid(bodyJSON.getAsString(ESParams.MEID));
         }
-        identity.append(ESParams.SPLITSTR);
 
         int from;
         int size;
@@ -80,8 +94,11 @@ public class XiyuanSearchC {
 
         if (bodyJSON.containsKey(ESParams.TYPE)) {
 
+            searchModel.setType(bodyJSON.getAsString(ESParams.TYPE));
+
             if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).equals("")) {
-                logger.info(ESParams.XIYUAN_LOG_FLAG + identity + bodyJSON.getAsString(ESParams.TYPE) + " " + bodyJSON.getAsString(ESParams.KEY));
+                searchModel.setKey(bodyJSON.getAsString(ESParams.KEY));
+                logger.info(com.alibaba.fastjson.JSONObject.toJSONString(searchModel));
 
                 return searchService.allFieldSearchWithType(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.TYPE),
                         bodyJSON.getAsString(ESParams.KEY), from, size);
@@ -94,7 +111,8 @@ public class XiyuanSearchC {
         } else {
 
             if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).equals("")) {
-                logger.info(ESParams.XIYUAN_LOG_FLAG + identity + " " + bodyJSON.getAsString(ESParams.KEY));
+                searchModel.setKey(bodyJSON.getAsString(ESParams.KEY));
+                logger.info(com.alibaba.fastjson.JSONObject.toJSONString(searchModel));
 
                 return searchService.allFieldSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
                         bodyJSON.getAsString(ESParams.KEY),

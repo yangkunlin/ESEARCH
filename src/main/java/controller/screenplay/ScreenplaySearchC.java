@@ -56,17 +56,17 @@ public class ScreenplaySearchC {
 
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 
-        StringBuilder identity = new StringBuilder().append(ESParams.SPLITSTR + " ");
-        if (bodyJSON.containsKey(ESParams.UID)) {
-            identity.append(ESParams.UID + ":[").append(bodyJSON.getAsString(ESParams.UID)).append("] ");
-        }
-        if (bodyJSON.containsKey(ESParams.IMEI)) {
-            identity.append(ESParams.IMEI + ":[").append(bodyJSON.getAsString(ESParams.IMEI)).append("] ");
-        }
-        if (bodyJSON.containsKey(ESParams.MEID)) {
-            identity.append(ESParams.MEID + ":[").append(bodyJSON.getAsString(ESParams.MEID)).append("] ");
-        }
-        identity.append(ESParams.SPLITSTR);
+//        StringBuilder identity = new StringBuilder().append(ESParams.SPLITSTR + " ");
+//        if (bodyJSON.containsKey(ESParams.UID)) {
+//            identity.append(ESParams.UID + ":[").append(bodyJSON.getAsString(ESParams.UID)).append("] ");
+//        }
+//        if (bodyJSON.containsKey(ESParams.IMEI)) {
+//            identity.append(ESParams.IMEI + ":[").append(bodyJSON.getAsString(ESParams.IMEI)).append("] ");
+//        }
+//        if (bodyJSON.containsKey(ESParams.MEID)) {
+//            identity.append(ESParams.MEID + ":[").append(bodyJSON.getAsString(ESParams.MEID)).append("] ");
+//        }
+//        identity.append(ESParams.SPLITSTR);
 
         int from;
         int size;
@@ -82,7 +82,7 @@ public class ScreenplaySearchC {
         if (bodyJSON.containsKey(ESParams.TYPE)) {
 
             if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).equals("")) {
-                logger.info(ESParams.XIBEN_LOG_FLAG + identity + bodyJSON.getAsString(ESParams.TYPE) + " " + bodyJSON.getAsString(ESParams.KEY));
+//                logger.info(ESParams.XIBEN_LOG_FLAG + identity + bodyJSON.getAsString(ESParams.TYPE) + " " + bodyJSON.getAsString(ESParams.KEY));
 
                 return searchService.allFieldSearchWithType(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, bodyJSON.getAsString(ESParams.TYPE),
                         bodyJSON.getAsString(ESParams.KEY), from, size);
@@ -95,7 +95,7 @@ public class ScreenplaySearchC {
         } else {
 
             if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).equals("")) {
-                logger.info(ESParams.XIBEN_LOG_FLAG + identity + " " + bodyJSON.getAsString(ESParams.KEY));
+//                logger.info(ESParams.XIBEN_LOG_FLAG + identity + " " + bodyJSON.getAsString(ESParams.KEY));
 
                 return searchService.allFieldSearch(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE,
                         bodyJSON.getAsString(ESParams.KEY),
