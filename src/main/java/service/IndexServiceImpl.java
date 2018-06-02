@@ -26,7 +26,7 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public boolean addWithoutID(String _INDEX, String _TYPE, Map<String, Object> _FIELD) throws Exception {
 
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
 
         try {
             IndexResponse indexResponse = client.prepareIndex().setIndex(_INDEX)
@@ -50,7 +50,7 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public boolean addWithID(String _INDEX, String _TYPE, Map<String, Object> _FIELD, String _ID) throws Exception {
 
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
         try {
 
             IndexResponse indexResponse = client.prepareIndex().setIndex(_INDEX)
@@ -75,7 +75,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public boolean bulkAddWithoutID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception {
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
 
         try {
             BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -96,7 +96,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public boolean bulkAddWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception {
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
 
         try {
             BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -117,7 +117,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public boolean bulkDelWithID(String _INDEX, String _TYPE, List<Map<String, Object>> _FIELDS) throws Exception {
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
 
         try {
             BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -140,7 +140,7 @@ public class IndexServiceImpl implements IndexService {
     public String getWithID(String _INDEX, String _TYPE, String _ID) throws Exception {
 
         GetResponse getResponse;
-        try (TransportClient client = new ESClient().getConnection()) {
+        try (TransportClient client = ESClient.getConnection()) {
 
             getResponse = client.prepareGet().setIndex(_INDEX)
                     .setType(_TYPE)
@@ -155,7 +155,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public boolean delWithID(String _INDEX, String _TYPE, String _ID) throws Exception {
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
 
         try {
 
@@ -178,7 +178,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public boolean updateWithID(String _INDEX, String _TYPE, Map<String, Object> _BODY, String _ID) throws Exception {
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
 
         try {
 

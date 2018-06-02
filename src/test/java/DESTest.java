@@ -21,14 +21,14 @@ public class DESTest {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("name", "yang");
+//        map.put("name", "yang");
 
         String str = JSONObject.toJSONString(map);
 
         List<String> list = new ArrayList<>();
 
-        list.add(str);
-        list.add(str);
+//        list.add(str);
+//        list.add(str);
 
         System.out.println(list.toString());
 
@@ -37,7 +37,7 @@ public class DESTest {
         JSONArray array = JSONObject.parseArray(arr);
 
 
-        System.out.println(array.get(0).toString());
+        System.out.println(array);
 
 //        System.out.println(new String(DESUtils.encrypt(str.getBytes(), "95880288")));
 //        System.out.println(new String(DESUtils.decrypt(DESUtils.encrypt(str.getBytes(), "95880288"), "95880288")));

@@ -27,7 +27,7 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public String allFieldSearchWithType(String _INDEX, String _TYPE, String _TYPEVALUE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception {
         _FROM = _FROM * _SIZE;
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
         try {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
                     .setTypes(_TYPE)
@@ -51,7 +51,9 @@ public class SearchServiceImpl implements SearchService {
             if (client != null) {
                 client = null;
             }
-            return null;
+            List<String> emptyList;
+            emptyList = new ArrayList<>();
+            return emptyList.toString();
         }
 
     }
@@ -59,11 +61,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public String allFieldSearch(String _INDEX, String _TYPE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception {
-
         _FROM = _FROM * _SIZE;
-
-        TransportClient client = new ESClient().getConnection();
-
+        TransportClient client = ESClient.getConnection();
         try {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
                     .setTypes(_TYPE)
@@ -85,15 +84,15 @@ public class SearchServiceImpl implements SearchService {
             if (client != null) {
                 client = null;
             }
-            return null;
+            List<String> emptyList;
+            emptyList = new ArrayList<>();
+            return emptyList.toString();
         }
-
     }
 
     @Override
     public StringBuffer hotFieldSearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception {
-        TransportClient client = new ESClient().getConnection();
-
+        TransportClient client = ESClient.getConnection();
         try {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
                     .setTypes(_TYPE)
@@ -122,14 +121,14 @@ public class SearchServiceImpl implements SearchService {
             if (client != null) {
                 client = null;
             }
-            return null;
+            return new StringBuffer();
         }
 
     }
 
     @Override
     public String recommendSearch(String _INDEX, String _TYPE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception {
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
 
         try {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
@@ -152,13 +151,15 @@ public class SearchServiceImpl implements SearchService {
             if (client != null) {
                 client = null;
             }
-            return null;
+            List<String> emptyList;
+            emptyList = new ArrayList<>();
+            return emptyList.toString();
         }
 
     }
 
     public String recommendSearch(String _INDEX, String _TYPE, Object _TYPEVALUE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception {
-        TransportClient client = new ESClient().getConnection();
+        TransportClient client = ESClient.getConnection();
 
         try {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
@@ -170,7 +171,6 @@ public class SearchServiceImpl implements SearchService {
                     .addSort(ESParams.DATETIME, SortOrder.DESC)
                     .setExplain(true)
                     .get();
-
             SearchHits hits = searchResponse.getHits();
             List<JSON> jsonList = new ArrayList<>();
 
@@ -182,7 +182,9 @@ public class SearchServiceImpl implements SearchService {
             if (client != null) {
                 client = null;
             }
-            return null;
+            List<String> emptyList;
+            emptyList = new ArrayList<>();
+            return emptyList.toString();
         }
 
     }
