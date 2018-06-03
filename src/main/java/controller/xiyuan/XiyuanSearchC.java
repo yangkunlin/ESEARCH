@@ -55,7 +55,7 @@ public class XiyuanSearchC {
         SearchServiceImpl searchService = new SearchServiceImpl();
         JSONParser jsonParser = new JSONParser();
         SearchModel searchModel = new SearchModel();
-        searchModel.setTimestamp(new DateTime().getMillis());
+        searchModel.setTime(new DateTime().getMillis());
 
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 

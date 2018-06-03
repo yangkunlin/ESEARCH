@@ -16,7 +16,7 @@
         <!--这个输出Kafka的配置-->
         <Kafka name="Kafka" topic="FinalSearch">
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
-            <PatternLayout charset="GB18030" pattern="%message"/>
+            <PatternLayout charset="UTF-8" pattern="%message"/>
             <Property name="bootstrap.servers">10.141.30.98:9092,10.141.82.240:9092,10.141.0.198:9092</Property>
         </Kafka>
 

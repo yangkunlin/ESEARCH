@@ -1,7 +1,5 @@
 package model;
 
-import javax.print.DocFlavor;
-
 /**
  * Author:  yangkunlin
  * Date:    2018/6/2
@@ -12,7 +10,7 @@ public class SearchModel {
     private String uid;
     private String imei;
     private String meid;
-    private Long timestamp;
+    private Long time;
     private String type;
     private String key;
 
@@ -40,12 +38,12 @@ public class SearchModel {
         this.meid = meid;
     }
 
-    public Long getTimestamp() {
-        return timestamp;
+    public Long getTime() {
+        return time;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public String getType() {
