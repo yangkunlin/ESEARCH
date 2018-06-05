@@ -49,8 +49,6 @@ public class ESParams {
 
     public static String HOTWORD_TYPE = "hotword";
 
-    public static String SPLITSTR = "&";
-
     public static String UID = "uid";
 
     public static String IMEI = "imei";
@@ -87,8 +85,10 @@ public class ESParams {
 
     public static String DATETIME = "datetime";
 
-    public static String XIYUAN_LOG_FLAG = "XIYUAN:";
+    public static String SCORE = "_score";
 
-    public static String XIBEN_LOG_FLAG = "XIBEN:";
+    public static String[] REDISCLUSTERHOST = {"bigdata-slave01", "bigdata-slave02", "bigdata-slave03"};
+
+    public static int[] REDISCLUSTERPORT = {7000, 7001};
 
 }

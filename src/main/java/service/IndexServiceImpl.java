@@ -1,6 +1,6 @@
 package service;
 
-import common.ESClient;
+import utils.ESClient;
 import common.ESParams;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;

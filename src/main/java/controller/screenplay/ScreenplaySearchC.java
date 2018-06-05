@@ -3,8 +3,6 @@ package controller.screenplay;
 import common.ESParams;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +18,7 @@ import service.SearchServiceImpl;
 @RestController
 public class ScreenplaySearchC {
 
-    private static Logger logger = LogManager.getRootLogger();
+//    private static Logger logger = LogManager.getRootLogger();
 
     public ScreenplaySearchC() {
     }

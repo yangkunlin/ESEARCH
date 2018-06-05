@@ -1,4 +1,4 @@
-package common;
+package utils;
 
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
@@ -30,11 +30,11 @@ public class IKSplit {
 //        while (ts.incrementToken()) {
 //            splitStr.add(term.toString());
 //        }
-        StringReader reader=new StringReader(str);
-        IKSegmenter ik=new IKSegmenter(reader, true);
-        Lexeme lex=null;
+        StringReader reader = new StringReader(str);
+        IKSegmenter ik = new IKSegmenter(reader, true);
+        Lexeme lex = null;
         List<String> splitStr = new ArrayList<String>();
-        while((lex=ik.next())!=null){
+        while ((lex = ik.next()) != null) {
             splitStr.add(lex.getLexemeText());
         }
 

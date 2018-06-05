@@ -1,5 +1,6 @@
-package common;
+package utils;
 
+import common.ESParams;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;

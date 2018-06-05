@@ -1,7 +1,7 @@
 package service;
 
 import com.alibaba.fastjson.JSON;
-import common.ESClient;
+import utils.ESClient;
 import common.ESParams;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -36,6 +36,7 @@ public class SearchServiceImpl implements SearchService {
                             .must(QueryBuilders.multiMatchQuery(_QUERYVALUE, ESParams.MARK, ESParams.CONTENT)))//支持一个值同时匹配多个字段
                     //.setPostFilter(QueryBuilders.rangeQuery("age").from(19).to(400))
                     .setFrom(_FROM).setSize(_SIZE)
+                    .addSort(ESParams.SCORE, SortOrder.DESC)
                     .addSort(ESParams.DATETIME, SortOrder.DESC)
                     .setExplain(true)
                     .get();
@@ -70,6 +71,7 @@ public class SearchServiceImpl implements SearchService {
                     .setQuery(QueryBuilders.multiMatchQuery(_QUERYVALUE, ESParams.MARK, ESParams.CONTENT))//支持一个值同时匹配多个字段
                     //.setPostFilter(QueryBuilders.rangeQuery("age").from(19).to(400))
                     .setFrom(_FROM).setSize(_SIZE)
+                    .addSort(ESParams.SCORE, SortOrder.DESC)
                     .addSort(ESParams.DATETIME, SortOrder.DESC)
                     .setExplain(true)
                     .get();
