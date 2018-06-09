@@ -7,23 +7,21 @@ package common;
  */
 public class ESParams {
 
-    public static String _CLUSTERNAME = "xy_elasticsearch";
+    public static String _CLUSTERNAME = "elasticsearch.clustername";
 
-    public static String HOST_01 = "bigdata-master01";
+    public static String HOST_01 = "elasticsearch.host.01";
 
-    public static String HOST_02 = "bigdata-master02";
+    public static String HOST_02 = "elasticsearch.host.02";
 
-    public static String HOST_03 = "bigdata-slave01";
+    public static String HOST_03 = "elasticsearch.host.03";
 
-    public static String HOST_04 = "bigdata-slave02";
+    public static String HOST_04 = "elasticsearch.host.04";
 
-    public static String HOST_05 = "bigdata-slave03";
+    public static String HOST_05 = "elasticsearch.host.05";
 
-    public static int _PORT = 12262;
+    public static String _PORT = "elasticsearch.port";
 
-    public static String ELASTICSEARCH_ID = "gid";
-
-    public static String ELASTICSEARCH_XPACK = "elastic:xy2018E12_27";
+    public static String ELASTICSEARCH_XPACK = "elasticsearch.xpack";
 
 //    public static String XIYUAN_INDEX = "trial_xysearch";
 //
@@ -48,6 +46,8 @@ public class ESParams {
     public static String HOTWORD_INDEX = "final_hwsearch";
 
     public static String HOTWORD_TYPE = "hotword";
+
+    public static String ELASTICSEARCH_ID = "gid";
 
     public static String UID = "uid";
 

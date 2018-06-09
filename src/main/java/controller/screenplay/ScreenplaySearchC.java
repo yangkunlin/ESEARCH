@@ -78,20 +78,15 @@ public class ScreenplaySearchC {
         }
 
         if (bodyJSON.containsKey(ESParams.TYPE)) {
-
             if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).equals("")) {
 //                logger.info(ESParams.XIBEN_LOG_FLAG + identity + bodyJSON.getAsString(ESParams.TYPE) + " " + bodyJSON.getAsString(ESParams.KEY));
 
                 return searchService.allFieldSearchWithType(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, bodyJSON.getAsString(ESParams.TYPE),
                         bodyJSON.getAsString(ESParams.KEY), from, size);
             } else {
-                return searchService.allFieldSearchWithType(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.TYPE),
-                        "", from, size);
+                return searchService.emptySearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, from, size);
             }
-
-
         } else {
-
             if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).equals("")) {
 //                logger.info(ESParams.XIBEN_LOG_FLAG + identity + " " + bodyJSON.getAsString(ESParams.KEY));
 
@@ -99,8 +94,7 @@ public class ScreenplaySearchC {
                         bodyJSON.getAsString(ESParams.KEY),
                         from, size);
             } else {
-                return searchService.allFieldSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
-                        "", from, size);
+                return searchService.emptySearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, from, size);
             }
 
 
@@ -126,14 +120,28 @@ public class ScreenplaySearchC {
             size = ESParams.DEFAULT_SIZE;
         }
 
-        if (bodyJSON.containsKey(ESParams.TYPE)) {
-
-            return searchService.recommendSearch(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, bodyJSON.getAsString(ESParams.TYPE),
-                    bodyJSON.getAsString(ESParams.RECOMMEND), from, size);
+        if (bodyJSON.containsKey(ESParams.TYPE) && !bodyJSON.getAsString(ESParams.TYPE).isEmpty()) {
+            if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).isEmpty()) {
+                return searchService.recommendSearch(ESParams.SCREENPLAY_INDEX,
+                        ESParams.SCREENPLAY_TYPE,
+                        bodyJSON.getAsString(ESParams.TYPE),
+                        bodyJSON.getAsString(ESParams.KEY),
+                        bodyJSON.getAsString(ESParams.RECOMMEND), from, size);
+            } else {
+                return searchService.recommendSearch(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE, bodyJSON.getAsString(ESParams.TYPE),
+                        bodyJSON.getAsString(ESParams.RECOMMEND), from, size, 0);
+            }
         } else {
 
-            return searchService.recommendSearch(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE,
-                    bodyJSON.getAsString(ESParams.RECOMMEND), from, size);
+            if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).isEmpty()) {
+                return searchService.recommendSearch(ESParams.SCREENPLAY_INDEX,
+                        ESParams.SCREENPLAY_TYPE,
+                        bodyJSON.getAsString(ESParams.KEY),
+                        bodyJSON.getAsString(ESParams.RECOMMEND), from, size, 1);
+            } else {
+                return searchService.recommendSearch(ESParams.SCREENPLAY_INDEX, ESParams.SCREENPLAY_TYPE,
+                        bodyJSON.getAsString(ESParams.RECOMMEND), from, size);
+            }
         }
 
 

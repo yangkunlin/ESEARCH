@@ -7,43 +7,39 @@ import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.xpack.client.PreBuiltXPackTransportClient;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.InetAddress;
 
 /**
  * @author YKL on 2018/4/16.
  * @version 1.0
- *          spark：
- *          梦想开始的地方
+ * spark：
+ * 梦想开始的地方
  */
 @Component
 public class ESClient {
 
-    //private  EsClient client = new EsClient();
     private static volatile TransportClient client;
 
     public ESClient() {
-//        System.out.print("--------------------------------");
-
     }
 
-    public static synchronized TransportClient getConnection() {
-
-
+    public static synchronized TransportClient getConnection() throws IOException {
+        PropertiesUtil prop = new PropertiesUtil("elasticsearch.properties");
         if (client == null) {
             synchronized (ESClient.class) {
                 if (client == null) {
                     try {
                         Settings settings = Settings.builder()
 //                    .put("client.transport.sniff", true)
-                                .put("xpack.security.user", ESParams.ELASTICSEARCH_XPACK)
-                                .put("cluster.name", ESParams._CLUSTERNAME).build();
+                                .put("xpack.security.user", prop.getValue(ESParams.ELASTICSEARCH_XPACK))
+                                .put("cluster.name", prop.getValue(ESParams._CLUSTERNAME)).build();
                         client = new PreBuiltXPackTransportClient(settings)
-                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_01), ESParams._PORT))
-                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_02), ESParams._PORT))
-                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_03), ESParams._PORT))
-                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_04), ESParams._PORT))
-                                .addTransportAddress(new TransportAddress(InetAddress.getByName(ESParams.HOST_05), ESParams._PORT));
-//            System.out.print(client.toString());
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(prop.getValue(ESParams.HOST_01)), Integer.valueOf(prop.getValue(ESParams._PORT))))
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(prop.getValue(ESParams.HOST_02)), Integer.valueOf(prop.getValue(ESParams._PORT))))
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(prop.getValue(ESParams.HOST_03)), Integer.valueOf(prop.getValue(ESParams._PORT))))
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(prop.getValue(ESParams.HOST_04)), Integer.valueOf(prop.getValue(ESParams._PORT))))
+                                .addTransportAddress(new TransportAddress(InetAddress.getByName(prop.getValue(ESParams.HOST_05)), Integer.valueOf(prop.getValue(ESParams._PORT))));
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         client.close();

@@ -35,7 +35,7 @@ public class XiyuanSearchC {
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 
         int num;
-        if (bodyJSON.containsKey(ESParams.HOTKEYNUM)){
+        if (bodyJSON.containsKey(ESParams.HOTKEYNUM)) {
             num = Integer.valueOf(bodyJSON.getAsString(ESParams.HOTKEYNUM));
         } else {
             num = ESParams.DEFAULT_SIZE;
@@ -59,18 +59,6 @@ public class XiyuanSearchC {
 
         JSONObject bodyJSON = (JSONObject) jsonParser.parse(body);
 
-//        StringBuilder identity = new StringBuilder().append(ESParams.SPLITSTR + " ");
-//        if (bodyJSON.containsKey(ESParams.UID)) {
-//            identity.append(ESParams.UID + ":[").append(bodyJSON.getAsString(ESParams.UID)).append("] ");
-//        }
-//        if (bodyJSON.containsKey(ESParams.IMEI)) {
-//            identity.append(ESParams.IMEI + ":[").append(bodyJSON.getAsString(ESParams.IMEI)).append("] ");
-//        }
-//        if (bodyJSON.containsKey(ESParams.MEID)) {
-//            identity.append(ESParams.MEID + ":[").append(bodyJSON.getAsString(ESParams.MEID)).append("] ");
-//        }
-//        identity.append(ESParams.SPLITSTR);
-
         if (bodyJSON.containsKey(ESParams.UID)) {
             searchModel.setUid(bodyJSON.getAsString(ESParams.UID));
         }
@@ -84,7 +72,7 @@ public class XiyuanSearchC {
         int from;
         int size;
 
-        if (bodyJSON.containsKey(ESParams.FROM)&&bodyJSON.containsKey(ESParams.SIZE)) {
+        if (bodyJSON.containsKey(ESParams.FROM) && bodyJSON.containsKey(ESParams.SIZE)) {
             from = Integer.valueOf(bodyJSON.getAsString(ESParams.FROM));
             size = Integer.valueOf(bodyJSON.getAsString(ESParams.SIZE));
         } else {
@@ -103,13 +91,9 @@ public class XiyuanSearchC {
                 return searchService.allFieldSearchWithType(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.TYPE),
                         bodyJSON.getAsString(ESParams.KEY), from, size);
             } else {
-                return searchService.allFieldSearchWithType(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.TYPE),
-                        "", from, size);
+                return searchService.emptySearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, from, size);
             }
-
-
         } else {
-
             if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).equals("")) {
                 searchModel.setKey(bodyJSON.getAsString(ESParams.KEY));
                 logger.info(com.alibaba.fastjson.JSONObject.toJSONString(searchModel));
@@ -118,11 +102,8 @@ public class XiyuanSearchC {
                         bodyJSON.getAsString(ESParams.KEY),
                         from, size);
             } else {
-                return searchService.allFieldSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
-                        "", from, size);
+                return searchService.emptySearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, from, size);
             }
-
-
         }
 
     }
@@ -137,7 +118,7 @@ public class XiyuanSearchC {
         int from;
         int size;
 
-        if (bodyJSON.containsKey(ESParams.FROM)&&bodyJSON.containsKey(ESParams.SIZE)) {
+        if (bodyJSON.containsKey(ESParams.FROM) && bodyJSON.containsKey(ESParams.SIZE)) {
             from = Integer.valueOf(bodyJSON.getAsString(ESParams.FROM));
             size = Integer.valueOf(bodyJSON.getAsString(ESParams.SIZE));
         } else {
@@ -145,14 +126,28 @@ public class XiyuanSearchC {
             size = ESParams.DEFAULT_SIZE;
         }
 
-        if (bodyJSON.containsKey(ESParams.TYPE)) {
-
-            return searchService.recommendSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.TYPE),
-                    bodyJSON.getAsString(ESParams.RECOMMEND), from, size);
+        if (bodyJSON.containsKey(ESParams.TYPE) && !bodyJSON.getAsString(ESParams.TYPE).isEmpty()) {
+            if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).isEmpty()) {
+                return searchService.recommendSearch(ESParams.XIYUAN_INDEX,
+                        ESParams.XIYUAN_TYPE,
+                        bodyJSON.getAsString(ESParams.TYPE),
+                        bodyJSON.getAsString(ESParams.KEY),
+                        bodyJSON.getAsString(ESParams.RECOMMEND), from, size);
+            } else {
+                return searchService.recommendSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE, bodyJSON.getAsString(ESParams.TYPE),
+                        bodyJSON.getAsString(ESParams.RECOMMEND), from, size, 0);
+            }
         } else {
 
-            return searchService.recommendSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
-                    bodyJSON.getAsString(ESParams.RECOMMEND), from, size);
+            if (bodyJSON.containsKey(ESParams.KEY) && !bodyJSON.getAsString(ESParams.KEY).isEmpty()) {
+                return searchService.recommendSearch(ESParams.XIYUAN_INDEX,
+                        ESParams.XIYUAN_TYPE,
+                        bodyJSON.getAsString(ESParams.KEY),
+                        bodyJSON.getAsString(ESParams.RECOMMEND), from, size, 1);
+            } else {
+                return searchService.recommendSearch(ESParams.XIYUAN_INDEX, ESParams.XIYUAN_TYPE,
+                        bodyJSON.getAsString(ESParams.RECOMMEND), from, size);
+            }
         }
 
 

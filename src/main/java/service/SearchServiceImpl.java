@@ -33,8 +33,7 @@ public class SearchServiceImpl implements SearchService {
                     .setTypes(_TYPE)
                     .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                     .setQuery(QueryBuilders.boolQuery().must(QueryBuilders.matchQuery(ESParams.TYPE, _TYPEVALUE))
-                            .must(QueryBuilders.multiMatchQuery(_QUERYVALUE, ESParams.MARK, ESParams.CONTENT)))//支持一个值同时匹配多个字段
-                    //.setPostFilter(QueryBuilders.rangeQuery("age").from(19).to(400))
+                            .must(QueryBuilders.multiMatchQuery(_QUERYVALUE, ESParams.MARK, ESParams.CONTENT)))
                     .setFrom(_FROM).setSize(_SIZE)
                     .addSort(ESParams.SCORE, SortOrder.DESC)
                     .addSort(ESParams.DATETIME, SortOrder.DESC)
@@ -68,8 +67,7 @@ public class SearchServiceImpl implements SearchService {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
                     .setTypes(_TYPE)
                     .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                    .setQuery(QueryBuilders.multiMatchQuery(_QUERYVALUE, ESParams.MARK, ESParams.CONTENT))//支持一个值同时匹配多个字段
-                    //.setPostFilter(QueryBuilders.rangeQuery("age").from(19).to(400))
+                    .setQuery(QueryBuilders.multiMatchQuery(_QUERYVALUE, ESParams.MARK, ESParams.CONTENT))
                     .setFrom(_FROM).setSize(_SIZE)
                     .addSort(ESParams.SCORE, SortOrder.DESC)
                     .addSort(ESParams.DATETIME, SortOrder.DESC)
@@ -99,8 +97,7 @@ public class SearchServiceImpl implements SearchService {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
                     .setTypes(_TYPE)
                     .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                    .setQuery(QueryBuilders.matchAllQuery())//支持一个值同时匹配多个字段
-                    //.setPostFilter(QueryBuilders.rangeQuery("age").from(19).to(400))
+                    .setQuery(QueryBuilders.matchAllQuery())
                     .setFrom(_FROM).setSize(_SIZE)
                     .addSort(ESParams.HOTKEYTIMES, SortOrder.DESC)
                     .setExplain(true)
@@ -129,6 +126,36 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
+    public String emptySearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception {
+        TransportClient client = ESClient.getConnection();
+        try {
+            SearchResponse searchResponse = client.prepareSearch(_INDEX)
+                    .setTypes(_TYPE)
+                    .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                    .setQuery(QueryBuilders.matchAllQuery())
+                    //.setPostFilter(QueryBuilders.rangeQuery("age").from(19).to(400))
+                    .setFrom(_FROM).setSize(_SIZE)
+                    .addSort(ESParams.DATETIME, SortOrder.DESC)
+                    .setExplain(true)
+                    .get();
+
+            SearchHits hits = searchResponse.getHits();
+            List<JSON> jsonList = new ArrayList<>();
+
+            mapToJsonList(hits, jsonList);
+            return JSON.toJSONString(jsonList);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (client != null) {
+                client = null;
+            }
+            List<String> emptyList;
+            emptyList = new ArrayList<>();
+            return emptyList.toString();
+        }
+    }
+
+    @Override
     public String recommendSearch(String _INDEX, String _TYPE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception {
         TransportClient client = ESClient.getConnection();
 
@@ -144,9 +171,7 @@ public class SearchServiceImpl implements SearchService {
 
             SearchHits hits = searchResponse.getHits();
             List<JSON> jsonList = new ArrayList<>();
-
             mapToJsonList(hits, jsonList);
-
             return JSON.toJSONString(jsonList);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -160,24 +185,68 @@ public class SearchServiceImpl implements SearchService {
 
     }
 
-    public String recommendSearch(String _INDEX, String _TYPE, Object _TYPEVALUE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception {
+    public String recommendSearch(String _INDEX, String _TYPE, Object _TYPEORKEYVALUE, Object _RECOMMENDVALUE, int _FROM, int _SIZE, int _FLAG) throws Exception {
+        TransportClient client = ESClient.getConnection();
+        SearchResponse searchResponse;
+        try {
+            if (_FLAG == 0) {
+                searchResponse = client.prepareSearch(_INDEX)
+                        .setTypes(_TYPE)
+                        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                        .setQuery(QueryBuilders.boolQuery()
+                                .must(QueryBuilders.matchQuery(ESParams.TYPE, _TYPEORKEYVALUE))
+                                .must(QueryBuilders.matchQuery(ESParams.RECOMMEND, Integer.valueOf( _RECOMMENDVALUE.toString().trim()))))
+                        .setFrom(_FROM).setSize(_SIZE)
+                        .addSort(ESParams.DATETIME, SortOrder.DESC)
+                        .setExplain(true)
+                        .get();
+            } else {
+                searchResponse = client.prepareSearch(_INDEX)
+                        .setTypes(_TYPE)
+                        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                        .setQuery(QueryBuilders.boolQuery()
+                                .must(QueryBuilders.multiMatchQuery(_TYPEORKEYVALUE, ESParams.MARK, ESParams.CONTENT))
+                                .must(QueryBuilders.matchQuery(ESParams.RECOMMEND, Integer.valueOf( _RECOMMENDVALUE.toString().trim()))))
+                        .setFrom(_FROM).setSize(_SIZE)
+                        .addSort(ESParams.DATETIME, SortOrder.DESC)
+                        .setExplain(true)
+                        .get();
+            }
+
+            SearchHits hits = searchResponse.getHits();
+            List<JSON> jsonList = new ArrayList<>();
+            mapToJsonList(hits, jsonList);
+            return JSON.toJSONString(jsonList);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (client != null) {
+                client = null;
+            }
+            List<String> emptyList;
+            emptyList = new ArrayList<>();
+            return emptyList.toString();
+        }
+
+    }
+
+    public String recommendSearch(String _INDEX, String _TYPE, Object _TYPEVALUE, Object _KEYVALUE, Object _RECOMMENDVALUE, int _FROM, int _SIZE) throws Exception {
         TransportClient client = ESClient.getConnection();
 
         try {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
                     .setTypes(_TYPE)
                     .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                    .setQuery(QueryBuilders.boolQuery().must(QueryBuilders.matchQuery(ESParams.TYPE, _TYPEVALUE))
-                            .must(QueryBuilders.matchQuery(ESParams.RECOMMEND, Integer.valueOf(_QUERYVALUE.toString().trim()))))
+                    .setQuery(QueryBuilders.boolQuery()
+                            .must(QueryBuilders.matchQuery(ESParams.TYPE, _TYPEVALUE))
+                            .must(QueryBuilders.matchQuery(ESParams.RECOMMEND, Integer.valueOf(_RECOMMENDVALUE.toString().trim())))
+                            .must(QueryBuilders.multiMatchQuery(_KEYVALUE, ESParams.MARK, ESParams.CONTENT)))
                     .setFrom(_FROM).setSize(_SIZE)
                     .addSort(ESParams.DATETIME, SortOrder.DESC)
                     .setExplain(true)
                     .get();
             SearchHits hits = searchResponse.getHits();
             List<JSON> jsonList = new ArrayList<>();
-
             mapToJsonList(hits, jsonList);
-
             return JSON.toJSONString(jsonList);
         } catch (Exception ex) {
             ex.printStackTrace();

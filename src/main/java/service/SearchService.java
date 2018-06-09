@@ -12,5 +12,6 @@ public interface SearchService {
     String allFieldSearch(String _INDEX, String _TYPE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception;
     StringBuffer hotFieldSearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception;
     String recommendSearch(String _INDEX, String _TYPE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception;
+    String emptySearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception;
 
 }
