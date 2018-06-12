@@ -2,21 +2,19 @@ package controller.xiyuan;
 
 import com.alibaba.fastjson.JSON;
 import common.ESParams;
-import net.minidev.json.parser.JSONParser;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import service.IndexServiceImpl;
-import service.SearchServiceImpl;
+import service.impl.IndexServiceImpl;
 
 import java.util.Map;
 
 /**
  * @author YKL on 2018/4/19.
  * @version 1.0
- *          spark：
- *          梦想开始的地方
+ * spark：
+ * 梦想开始的地方
  */
 @RestController
 public class XiyuanUpdateIndexC {

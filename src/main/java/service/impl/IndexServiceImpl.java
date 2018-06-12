@@ -1,6 +1,7 @@
-package service;
+package service.impl;
 
-import utils.ESClient;
+import service.IndexService;
+import utils.elasticsearch.ESClient;
 import common.ESParams;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;

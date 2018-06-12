@@ -10,7 +10,7 @@ public interface SearchService {
 
     String allFieldSearchWithType(String _INDEX, String _TYPE, String _TYPEVALUE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception;
     String allFieldSearch(String _INDEX, String _TYPE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception;
-    StringBuffer hotFieldSearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception;
+    String hotFieldSearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception;
     String recommendSearch(String _INDEX, String _TYPE, Object _QUERYVALUE, int _FROM, int _SIZE) throws Exception;
     String emptySearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception;
 

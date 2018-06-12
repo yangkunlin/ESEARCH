@@ -1,6 +1,6 @@
 package utils.redis;
 
-import common.ESParams;
+import common.RSParams;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
@@ -20,14 +20,14 @@ public class JedisUtil {
   private static JedisCluster jedis;
   static {
     // 添加集群的服务节点Set集合
-    Set<HostAndPort> hostAndPortsSet = new HashSet<HostAndPort>();
+    Set<HostAndPort> hostAndPortsSet = new HashSet<>();
     // 添加节点
-    hostAndPortsSet.add(new HostAndPort(ESParams.REDISCLUSTERHOST[0],ESParams.REDISCLUSTERPORT[0]));
-    hostAndPortsSet.add(new HostAndPort(ESParams.REDISCLUSTERHOST[0],ESParams.REDISCLUSTERPORT[1]));
-    hostAndPortsSet.add(new HostAndPort(ESParams.REDISCLUSTERHOST[1],ESParams.REDISCLUSTERPORT[0]));
-    hostAndPortsSet.add(new HostAndPort(ESParams.REDISCLUSTERHOST[1],ESParams.REDISCLUSTERPORT[1]));
-    hostAndPortsSet.add(new HostAndPort(ESParams.REDISCLUSTERHOST[2],ESParams.REDISCLUSTERPORT[0]));
-    hostAndPortsSet.add(new HostAndPort(ESParams.REDISCLUSTERHOST[2],ESParams.REDISCLUSTERPORT[1]));
+    hostAndPortsSet.add(new HostAndPort(RSParams.REDISCLUSTERHOST[0],RSParams.REDISCLUSTERPORT[0]));
+    hostAndPortsSet.add(new HostAndPort(RSParams.REDISCLUSTERHOST[0],RSParams.REDISCLUSTERPORT[1]));
+    hostAndPortsSet.add(new HostAndPort(RSParams.REDISCLUSTERHOST[1],RSParams.REDISCLUSTERPORT[0]));
+    hostAndPortsSet.add(new HostAndPort(RSParams.REDISCLUSTERHOST[1],RSParams.REDISCLUSTERPORT[1]));
+    hostAndPortsSet.add(new HostAndPort(RSParams.REDISCLUSTERHOST[2],RSParams.REDISCLUSTERPORT[0]));
+    hostAndPortsSet.add(new HostAndPort(RSParams.REDISCLUSTERHOST[2],RSParams.REDISCLUSTERPORT[1]));
 
     // Jedis连接池配置
     JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();

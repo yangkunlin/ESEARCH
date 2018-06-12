@@ -9,8 +9,8 @@ import java.security.SecureRandom;
 /**
  * @author YKL on 2018/4/20.
  * @version 1.0
- *          spark：
- *          梦想开始的地方
+ * spark：
+ * 梦想开始的地方
  */
 public class DESUtils {
 

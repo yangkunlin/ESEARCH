@@ -1,4 +1,4 @@
-package utils;
+package utils.elasticsearch;
 
 import common.ESParams;
 import org.elasticsearch.client.transport.TransportClient;
@@ -6,6 +6,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.xpack.client.PreBuiltXPackTransportClient;
 import org.springframework.stereotype.Component;
+import utils.PropertiesUtil;
 
 import java.io.IOException;
 import java.net.InetAddress;

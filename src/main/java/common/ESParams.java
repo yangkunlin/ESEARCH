@@ -87,8 +87,4 @@ public class ESParams {
 
     public static String SCORE = "_score";
 
-    public static String[] REDISCLUSTERHOST = {"bigdata-slave01", "bigdata-slave02", "bigdata-slave03"};
-
-    public static int[] REDISCLUSTERPORT = {7000, 7001};
-
 }

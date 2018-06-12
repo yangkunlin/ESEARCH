@@ -1,4 +1,4 @@
-package utils;
+package utils.ikanalysis;
 
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * @author YKL on 2018/4/19.
  * @version 1.0
- *          spark：
- *          梦想开始的地方
+ * spark：
+ * 梦想开始的地方
  */
 public class IKSplit {
 

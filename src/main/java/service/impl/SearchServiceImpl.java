@@ -1,7 +1,8 @@
-package service;
+package service.impl;
 
 import com.alibaba.fastjson.JSON;
-import utils.ESClient;
+import service.SearchService;
+import utils.elasticsearch.ESClient;
 import common.ESParams;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -91,7 +92,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public StringBuffer hotFieldSearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception {
+    public String hotFieldSearch(String _INDEX, String _TYPE, int _FROM, int _SIZE) throws Exception {
         TransportClient client = ESClient.getConnection();
         try {
             SearchResponse searchResponse = client.prepareSearch(_INDEX)
@@ -104,7 +105,6 @@ public class SearchServiceImpl implements SearchService {
                     .get();
 
             SearchHits hits = searchResponse.getHits();
-            StringBuffer jsonString = new StringBuffer();
             String[] strArr = new String[_SIZE];
             int i = 0;
 
@@ -113,14 +113,14 @@ public class SearchServiceImpl implements SearchService {
                 i++;
             }
 
-            jsonString.append(JSON.toJSONString(strArr));
+            String jsonString = JSON.toJSONString(strArr);
             return jsonString;
         } catch (Exception ex) {
             ex.printStackTrace();
             if (client != null) {
                 client = null;
             }
-            return new StringBuffer();
+            return null;
         }
 
     }
