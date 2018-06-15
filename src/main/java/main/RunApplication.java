@@ -12,9 +12,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "controller")
 public class RunApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         SpringApplication.run(RunApplication.class, args);
+//        DataSource druidDataSource = new DruidConfig().druidDataSource();
+//        Connection connection = druidDataSource.getConnection();
+//        PreparedStatement preparedStatement = connection.prepareStatement("SELECT videoName FROM video");
+//
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//        System.out.println("****");
+//        while (resultSet.next()) {
+//            System.out.println("****");
+//            System.out.println(resultSet.getObject(0).toString());
+//        }
+//
+//        resultSet.close();
+//        preparedStatement.close();
+//        connection.close();
 
     }
 

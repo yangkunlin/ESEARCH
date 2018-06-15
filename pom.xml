@@ -12,13 +12,16 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.12.RELEASE</version>
+        <version>1.5.13.RELEASE</version>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <log4j.version>2.11</log4j.version>
+        <mysql.version>6.0.6</mysql.version>
+        <durid.version>1.1.9</durid.version>
+        <elasticsearch.version>6.0.0</elasticsearch.version>
     </properties>
 
 
@@ -27,19 +30,27 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>6.0.0</version>
+            <version>${elasticsearch.version}</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>transport</artifactId>
-            <version>6.0.0</version>
+            <version>${elasticsearch.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.floragunn/search-guard-6 -->
+        <dependency>
+            <groupId>com.floragunn</groupId>
+            <artifactId>search-guard-6</artifactId>
+            <version>6.0.0-17.beta1</version>
+        </dependency>
+
 
         <!-- add the x-pack jar as a dependency -->
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>x-pack-transport</artifactId>
-            <version>6.0.0</version>
+            <version>${elasticsearch.version}</version>
         </dependency>
 
         <dependency>
@@ -67,6 +78,12 @@
                     <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
                 <!--</exclusion>-->
             <!--</exclusions>-->
+        </dependency>
+
+        <!-- 添加JDBC依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
         <dependency>
@@ -111,6 +128,20 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
+        </dependency>
+
+        <!-- DataBase数据库连接 mysql包-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <!-- 数据库连接池-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${durid.version}</version>
         </dependency>
 
     </dependencies>

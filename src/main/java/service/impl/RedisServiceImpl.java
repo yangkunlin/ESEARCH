@@ -3,6 +3,7 @@ package service.impl;
 import com.alibaba.fastjson.JSON;
 import common.RSParams;
 import model.RedisResultModel;
+import org.springframework.stereotype.Service;
 import service.RedisService;
 import utils.SortUtil;
 import utils.redis.JedisUtil;
@@ -18,6 +19,7 @@ import java.util.Set;
  * @version 1.0
  *          spark:梦想开始的地方
  */
+@Service
 public class RedisServiceImpl implements RedisService{
 
 

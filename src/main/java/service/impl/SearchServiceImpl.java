@@ -1,6 +1,7 @@
 package service.impl;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.stereotype.Service;
 import service.SearchService;
 import utils.elasticsearch.ESClient;
 import common.ESParams;
@@ -23,6 +24,7 @@ import java.util.Map;
  * spark：
  * 梦想开始的地方
  */
+@Service
 public class SearchServiceImpl implements SearchService {
 
     @Override

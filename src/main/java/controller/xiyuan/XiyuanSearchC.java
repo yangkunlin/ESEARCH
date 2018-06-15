@@ -8,11 +8,13 @@ import model.SearchModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import service.RedisService;
+import service.SearchService;
 import service.impl.RedisServiceImpl;
 import service.impl.SearchServiceImpl;
 import utils.DateUtil;
@@ -28,17 +30,22 @@ public class XiyuanSearchC {
 
     private static Logger logger = LogManager.getRootLogger();
 
+    @Autowired
+    private static SearchService searchService = new SearchServiceImpl();
+
+    @Autowired
+    private static  RedisService redisService = new RedisServiceImpl();
+
     public XiyuanSearchC() {
     }
 
     @RequestMapping(value = "/XIYUAN/SearchHotKey", method = RequestMethod.POST)
     public String hotFieldSearch(@RequestBody String body) throws Exception {
 
-        RedisService redisService = new RedisServiceImpl();
+
         String type = RSParams.REDISSEARCHKEY;
         String dateStr = DateUtil.getYesterday();
 
-        SearchServiceImpl searchService = new SearchServiceImpl();
         JSONObject bodyJSON = JSON.parseObject(body);
 
         int num;
@@ -68,7 +75,6 @@ public class XiyuanSearchC {
     @RequestMapping(value = "/XIYUAN/Search", method = RequestMethod.POST)
     public String fieldSearch(@RequestBody String body) throws Exception {
 
-        SearchServiceImpl searchService = new SearchServiceImpl();
         SearchModel searchModel = new SearchModel();
         searchModel.setTime(new DateTime().getMillis());
 
@@ -125,7 +131,6 @@ public class XiyuanSearchC {
 
     @RequestMapping(value = "/XIYUAN/Search/Recommend", method = RequestMethod.POST)
     public String recommendSearch(@RequestBody String body) throws Exception {
-        SearchServiceImpl searchService = new SearchServiceImpl();
         JSONObject bodyJSON = JSON.parseObject(body);
 
         int from;

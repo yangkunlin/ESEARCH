@@ -15,7 +15,7 @@
 
         <!--这个输出Kafka的配置-->
         <Kafka name="Kafka" topic="FinalSearch">
-            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout charset="UTF-8" pattern="%message"/>
             <Property name="bootstrap.servers">10.141.30.98:9092,10.141.82.240:9092,10.141.0.198:9092</Property>
         </Kafka>
@@ -35,7 +35,7 @@
 
         <!--<File name="log" fileName="log/test.log" append="false">-->
 
-            <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>-->
+        <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>-->
 
         <!--</File>-->
 
@@ -45,11 +45,11 @@
 
                      filePattern="${LOG_HOME}/info-%d{yyyy-MM-dd}.log">
 
-                     <!--filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">-->
+            <!--filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">-->
 
             <!--控制台只输出level及以上级别的信息（onMatch）， （onMismatch）-->
 
-            <ThresholdFilter level="info" onMatch="DENY" onMismatch="DENY" />
+            <ThresholdFilter level="info" onMatch="DENY" onMismatch="DENY"/>
 
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
 
@@ -120,7 +120,7 @@
         <logger name="org.springframework" level="WARN"/>
         <logger name="org.elasticsearch" level="WARN"/>
         <Logger name="org.apache.kafka" level="WARN"/>
-
+        <Logger name="com.floragunn" level="WARN"/>
         <root level="info">
 
             <!--<appender-ref ref="Console"/>-->

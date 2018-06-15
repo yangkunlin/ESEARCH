@@ -110,12 +110,12 @@ public class CosineUtil {
         return -1;
     }
 
-//    public static void main(String[] args) {
-//        String str1="李媛媛";
-//        String str2="赵媛媛";
-//        long start=System.currentTimeMillis();
-//        double Similarity=CosineUtil.getSimilarity(str1, str2);
-//        System.out.println("用时:"+(System.currentTimeMillis()-start));
-//        System.out.println(Similarity);
-//    }
+    public static void main(String[] args) {
+        String str1="豫剧《春暖花又开》B";
+        String str2="曲剧《梨花情》A";
+        long start=System.currentTimeMillis();
+        double Similarity=CosineUtil.getSimilarity(str1, str2);
+        System.out.println("用时:"+(System.currentTimeMillis()-start));
+        System.out.println(Similarity);
+    }
 }

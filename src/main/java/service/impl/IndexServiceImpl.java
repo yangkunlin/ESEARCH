@@ -1,5 +1,6 @@
 package service.impl;
 
+import org.springframework.stereotype.Service;
 import service.IndexService;
 import utils.elasticsearch.ESClient;
 import common.ESParams;
@@ -20,6 +21,7 @@ import java.util.UUID;
  *          spark：
  *          梦想开始的地方
  */
+@Service
 public class IndexServiceImpl implements IndexService {
 
 //    private static Logger logger = LogManager.getRootLogger();
