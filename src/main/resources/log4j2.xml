@@ -3,10 +3,10 @@
 
     <properties>
         <!-- 生产环境 -->
-        <property name="LOG_HOME">/xvdb/FINALESEARCH/logs/final/</property>
+        <!--<property name="LOG_HOME">/xvdb/FINALESEARCH/logs/final/</property>-->
 
         <!--&lt;!&ndash;&lt;!&ndash; 开发环境 &ndash;&gt;&ndash;&gt;-->
-        <!--<property name="LOG_HOME">/xvdb/TRIALESEARCH/logs/test/</property>-->
+        <property name="LOG_HOME">/xvdb/TRIALESEARCH/logs/test/</property>
 
     </properties>
 
@@ -123,7 +123,7 @@
         <Logger name="com.floragunn" level="WARN"/>
         <root level="info">
 
-            <!--<appender-ref ref="Console"/>-->
+            <appender-ref ref="Console"/>
 
             <!--<appender-ref ref="RollingFileInfo"/>-->
 
@@ -131,7 +131,7 @@
 
             <appender-ref ref="RollingFileError"/>
 
-            <AppenderRef ref="Kafka"/>
+            <!--<AppenderRef ref="Kafka"/>-->
 
         </root>
 

@@ -150,7 +150,7 @@
 
         <!-- 打成jar包的名称 -->
 
-        <finalName>FINALESEARCH</finalName>
+        <finalName>TRIALESEARCH</finalName>
 
         <plugins>
 
